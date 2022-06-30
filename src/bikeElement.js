@@ -1,6 +1,6 @@
-// export default class BikeElement {  
-   function stolenBike() {
-    fetch(`https://bikeindex.org:443/api/v3/search`)
+export default class BikeElement {  
+  static stolenBike() {
+    return fetch(`https://bikeindex.org:443/api/v3/search`)
       .then(response =>{
         if (!response.ok){
           throw Error("ERROR");
@@ -8,27 +8,26 @@
         return response.json();
     //  console.log(response);
   })
-  .then (data => {
-   console.log(data.bikes)
-   const html = data.bikes.map( bikes => {
-     return `
-     <div class="bike">
-      <p> title : ${bikes.title}</p>
-      <p><img src"${bikes.url}" alt"${bikes.title}"</p>
-      <p> location : ${bikes.stolen_location}</p>
-      <p> date stolen: ${bikes.date_stolen}</p>
-      <p>bike model: ${bikes.frame_model}</p>
-      </div>`
-   }).join('');
-   console.log(html)
-   document.querySelector("#showBikes").insertAdjacentHTML('afterbegin',html)
-  })
+  // .then (data => {
+  //  console.log(data.bikes)
+  //  const html = data.bikes.map( bikes => {
+  //    return `
+  //    <div class="bike">
+  //     <p> title : ${bikes.title}</p>
+  //     <p> location : ${bikes.stolen_location}</p>
+  //     <p> date stolen: ${bikes.date_stolen}</p>
+  //     <p>bike model: ${bikes.frame_model}</p>
+  //     </div>`
+  //  }).join('');
+  //  console.log(html)
+  //  document.querySelector("#showBikes").insertAdjacentHTML('afterbegin',html)
+  // })
   .catch( error => {
    console.log(error)
   });
 }
-stolenBike();
-// }
+// stolenBike()
+}
 
 
 
