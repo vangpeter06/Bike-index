@@ -1,29 +1,30 @@
-// import $ from 'jquery';
+import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import BikeElement from './bikeElement.js';
  
 
-let newBike = BikeElement.stolenBike();
+// let newBike = BikeElement.stolenBike();
 
-// console.log(newBike)
-
-function bikeList(){
-   const newBikeList = newBike.bikes.map( bikes =>{
-   `
-    <div class="bike">
-     <p> title : ${bikes.title}</p>
-     <p> location : ${bikes.stolen_location}</p>
-     <p> date stolen: ${bikes.date_stolen}</p>
-    <p>bike model: ${bikes.frame_model}</p>
-    </div>`
-
-   })
-   return bikeList;
+function getElements(response){
+  let bikeList = [];
+  for (let i = 0; i < response.bikes.length; i++){
+    bikeList.push(`<p>title: ${response.bikes[i].title}</p>`);
   }
-  document.querySelector("#showBikes").insertAdjacentHTML('afterbegin', newBikeList)     
+  $('#showBikes').html(bikeList);
+}
 
+async function makeApiCall(){
+  const response = await BikeElement.stolenBike();
+  getElements(response)
+}
+
+$(document).ready(function() {
+  $('#stolen').click(function() {
+    makeApiCall();
+  });
+});
 
 //  $(document).ready(function() {
 //   $('#stolen').click(function() {
@@ -112,15 +113,6 @@ function bikeList(){
  
 
 
-// $(document).ready(function() {
-//   $('#stolen').click(function() {
-//     // let bikes;
-//     // let apiResult = makeApiCall(bikes);
-//     // let colors = $("#colors").val();
-//     // let location = ("#location").val();
-//     makeApiCall();
-//   });
-// });// 
 
 
 
